@@ -2,9 +2,25 @@
   <h1>{{ title }}</h1>
   <p>Welcome......</p>
   <div v-if="showModal">
-    <Modal :header="header" :text="text" theme="sale" @close="toggleModal"/>
+    <Modal  theme="sale" @close="toggleModal">
+      <template v-slot:links>
+        <a href="#">Signup Now</a>
+        <a href="#">More info</a>
+      </template>
+    <h1>Ninja Giveaway</h1>
+    <p> Grab your Ninja swag for Half the price</p>
+     </Modal>
   </div>
+
+  <teleport to=".modals" v-if="showModaltwo">
+    <Modal @close="toggleModaltwo">
+    <h1>sign up for newsletter</h1>
+    <p>For updates and promo codes</p>
+     </Modal>
+    </teleport>
+
   <button @click.alt="toggleModal">Open Model (alt)</button>
+  <button @click="toggleModaltwo">Open Modeltwo </button>
   
 </template>
 
@@ -20,12 +36,16 @@ export default {
       title:'My first Vue App title',
       header:"sign up for the give away",
       text:"Grab your ninja swag for half the price",
-      showModal: false
+      showModal: false,
+      showModaltwo: false
     }
   },
   methods: {
     toggleModal(){
       this.showModal=!this.showModal
+    },
+    toggleModaltwo(){
+      this.showModaltwo=!this.showModaltwo
     }
   }
 
